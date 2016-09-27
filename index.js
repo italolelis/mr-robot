@@ -5,8 +5,8 @@ require('dotenv').config()
 
 var url = process.env.SLACK_WEBHOOK;
 var weatherApiKey = process.env.WEATHER_API_KEY
-var appName = process.env.APP_NAME | 'Mr Roboot'
-var appIcon = process.env.APP_ICON | ':robot_face:'
+var appName = process.env.APP_NAME
+var appIcon = process.env.APP_ICON
 var slackChannel = process.env.SLACK_CHANNEL
 
 var messages = [
