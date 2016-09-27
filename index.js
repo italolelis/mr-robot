@@ -38,7 +38,7 @@ exports.handler = (event, context, callback) => {
     console.log('Received event:', event.clickType);
 
     var wh = new IncomingWebhook(url, {
-        username: 'Mr. Button',
+        username: 'Mr. Roboot',
         iconEmoji: ':robot_face:',
         channel: 'squad-purchasing'
     });
