@@ -1,8 +1,9 @@
 const AWS = require('aws-sdk');
 var request = require('request');
 var IncomingWebhook = require('@slack/client').IncomingWebhook;
-var url = 'https://hooks.slack.com/services/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';
-var weatherApiKey = '83fd9c6880730970'
+require('dotenv').config()
+var url = process.env.SLACK_WEBHOOK;
+var weatherApiKey = process.env.WEATHER_API_KEY
 
 var messages = [
         'I need more :coffee: to work',
