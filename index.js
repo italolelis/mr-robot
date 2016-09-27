@@ -2,8 +2,12 @@ const AWS = require('aws-sdk');
 var request = require('request');
 var IncomingWebhook = require('@slack/client').IncomingWebhook;
 require('dotenv').config()
+
 var url = process.env.SLACK_WEBHOOK;
 var weatherApiKey = process.env.WEATHER_API_KEY
+var appName = process.env.APP_NAME | 'Mr Roboot'
+var appIcon = process.env.APP_ICON | ':robot_face:'
+var slackChannel = process.env.SLACK_CHANNEL
 
 var messages = [
         'I need more :coffee: to work',
@@ -39,9 +43,9 @@ exports.handler = (event, context, callback) => {
     console.log('Received event:', event.clickType);
 
     var wh = new IncomingWebhook(url, {
-        username: 'Mr. Roboot',
-        iconEmoji: ':robot_face:',
-        channel: 'squad-purchasing'
+        username: appName,
+        iconEmoji: appIcon,
+        channel: slackChannel
     });
 
     if (event.clickType == 'DOUBLE') {
