@@ -6,7 +6,7 @@
 
 # Mr Robot
 
-Testing application for the AWS IoT Button. 
+A nodejs lambda application for the AWS IoT Button. 
 The idea of this project it's just to play around with the new AWS Button. The functionalities are pretty simple.
 
 ### Single Click
