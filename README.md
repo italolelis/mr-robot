@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Mr Roboot
+# Mr Robot
 
 Testing application for the AWS IoT Button. 
 
