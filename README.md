@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://aws.amazon.com/iot/button/">
+    <img width="250" src="https://d0.awsstatic.com/IoT/AWS_IoT_button_short.jpg">
+  </a>
+</p>
+
 # Mr Roboot
 
 Testing application for the AWS IoT Button. 
