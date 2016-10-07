@@ -57,6 +57,8 @@ jobs:
   - aggregate:
     - task: build js
       file: app-master/ci/tasks/build.yml
+      params:
+        NPM_TOKEN: {{oauth_token}}
 
   - put: semantic-version
     params:
