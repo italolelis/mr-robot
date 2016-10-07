@@ -56,7 +56,7 @@ jobs:
 
   - aggregate:
     - task: build js
-      file: app-master/ci/tasks/master/build.yml
+      file: app-master/ci/tasks/build.yml
 
   - put: semantic-version
     params:
