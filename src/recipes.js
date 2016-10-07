@@ -1,11 +1,10 @@
-var merge = require('lodash.merge');
-var auth = require('./auth.js');
-var hfClient = require('./client.js');
-var slack = require('./slack.js');
-var date = require('./date.js');
+import merge from 'lodash/merge';
+import {createPublicToken} from './auth'
+import {createAuthorizedClient} from './client';
+import {getCurrentWeek} from './date';
 
-var getRecipes = (tokenType, accessToken, params = {}, data = {}) => {
-        var client = hfClient.createAuthorizedClient({
+export const getRecipes = (tokenType, accessToken, params = {}, data = {}) => {
+        const client = createAuthorizedClient({
             domain: process.env.API_V2_URL
         }, {
             tokenType: tokenType,
@@ -17,18 +16,14 @@ var getRecipes = (tokenType, accessToken, params = {}, data = {}) => {
         }, params));
 }
 
-var getCurrent = () => {
+export const getCurrent = () => {
     return new Promise((fulfill, reject) => {
-        auth.createPublicToken().then(result => {
+        createPublicToken().then(result => {
             getRecipes(result.data.token_type, result.data.access_token, {
-                params: { week: date.getCurrentWeek(), country: process.env.TEST_COUNTRY }
+                params: { week: getCurrentWeek(), country: process.env.TEST_COUNTRY }
             })
             .then(fulfill)
             .catch(reject)
         }).catch(reject);
     });
 }
-
-module.exports = {
-    getCurrent: getCurrent,
-};

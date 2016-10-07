@@ -1,13 +1,13 @@
-var request = require('request');
+import request from 'request';
 
 const WEATHER_SEARCH_URL = '/forecast/q/';
 
-var capitalizeFirstLetter = (string) => {
+const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-var requestWeather = (domain, weatherApiKey, country, city) => {
-    var url = domain + weatherApiKey + WEATHER_SEARCH_URL + capitalizeFirstLetter(country) + '/' + capitalizeFirstLetter(city) + '.json';
+const requestWeather = (domain, weatherApiKey, country, city) => {
+    const url = domain + weatherApiKey + WEATHER_SEARCH_URL + capitalizeFirstLetter(country) + '/' + capitalizeFirstLetter(city) + '.json';
 
     return new Promise((fulfill, reject) => {
         request({
@@ -27,7 +27,7 @@ var requestWeather = (domain, weatherApiKey, country, city) => {
     });
 }
 
-var current = (country, city) => {
+export const current = (country, city) => {
     return requestWeather(
             process.env.WEATHER_URL, 
             process.env.WEATHER_API_KEY,
@@ -39,7 +39,3 @@ var current = (country, city) => {
             return jsonResponse.forecast.txt_forecast.forecastday[0];         
         });
 }
-
-module.exports = {
-    current: current,
-};

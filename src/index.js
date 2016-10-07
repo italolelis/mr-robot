@@ -1,12 +1,11 @@
-require('dotenv').config();
+import dotenv from 'dotenv'
+import {getCurrent, getRecipes} from './recipes';
+import {sendMessage} from './slack';
+import {getCurrentWeek} from './date';
+import * as weather from './weather';
+import * as random from './randomizer';
 
-const AWS = require('aws-sdk');
-var request = require('request');
-var recipes = require('./recipes.js');
-var slack = require('./slack.js');
-var date = require('./date.js');
-var weather = require('./weather.js');
-var random = require('./randomizer.js');
+dotenv.config();
 
 exports.handler = (event, context, callback) => {
     console.log('Received event:', event.clickType);
@@ -15,25 +14,27 @@ exports.handler = (event, context, callback) => {
         console.log("Double click pressed, preparing to request weather....");
         weather.current('germany', 'berlin').then(dayForecast => {
             console.log("Weather retrieved");
-            var msg = 'The weather for today: ' + dayForecast.fcttext_metric;
-            slack.sendMessage(msg);
+            let msg = 'The weather for today: ' + dayForecast.fcttext_metric;
+            sendMessage(msg);
         }).catch(console.log);
     } else if (event.clickType == 'LONG') {
         console.log("Long click pressed, preparing to request recipes....");
-        recipes.getCurrent().then(response => {
+        getCurrent().then(response => {
             console.log("Recipes retrieved");
-            var recipes = response.data.items;
-            var msg = "*Here is this week " + date.getCurrentWeek() + " recipes* \n";
+            const recipes = response.data.items;
+            let msg = "*Here is this week " + getCurrentWeek() + " recipes* \n";
 
-            for (var i = 0; i < recipes.length; i++) {
-                var recipe = recipes[i];
+            for (let i = 0; i < recipes.length; i++) {
+                const recipe = recipes[i];
                 msg += '<https://hellofresh.com' + recipe.websiteUrl + '|' + recipe.name + '> \n';
             }
 
-            slack.sendMessage(msg);
+            sendMessage(msg);
         }).catch(console.log);
     } else {
         console.log("Single click pressed, showing a random message....");
-        slack.sendMessage(random.message())
+        sendMessage(random.message());
     }
 };
+
+

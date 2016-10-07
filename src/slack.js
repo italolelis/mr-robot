@@ -1,6 +1,6 @@
-var IncomingWebhook = require('@slack/client').IncomingWebhook;
+import {IncomingWebhook} from '@slack/client'
 
-var createIncomeWebhook = () => {
+const createIncomeWebhook = () => {
     return new IncomingWebhook(process.env.SLACK_WEBHOOK, {
         username: process.env.APP_NAME,
         iconEmoji: process.env.APP_ICON,
@@ -8,15 +8,10 @@ var createIncomeWebhook = () => {
     });
 }
 
-var sendMessage = (msg) => {
+export const sendMessage = (msg) => {
     console.log("Sending message to slack");
-    var wh = createIncomeWebhook();
+    const wh = createIncomeWebhook();
     wh.send(msg, function onSendEnd() {
         console.log('Message sent');
     });
 }
-
-module.exports = {
-    createIncomeWebhook: createIncomeWebhook,
-    sendMessage: sendMessage
-};

@@ -1,4 +1,4 @@
-var getWeekNumber = (d) => {
+const getWeekNumber = (d) => {
     // Copy date so don't modify original
     d = new Date(+d);
     d.setHours(0,0,0);
@@ -13,12 +13,7 @@ var getWeekNumber = (d) => {
     return [d.getFullYear(), weekNo];
 }
 
-var getCurrentWeek = () => {
-    var week = getWeekNumber(Date.now());
+export const getCurrentWeek = () => {
+    const week = getWeekNumber(Date.now());
     return week[0] + '-W' + week[1];
 }
-
-module.exports = {
-    getWeekNumber: getWeekNumber,
-    getCurrentWeek: getCurrentWeek,
-};
