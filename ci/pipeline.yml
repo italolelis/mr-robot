@@ -59,6 +59,14 @@ jobs:
       file: app-master/ci/tasks/build.yml
       params:
         NPM_TOKEN: {{oauth_token}}
+        SLACK_WEBHOOK: {{slack_webhook}}
+        SLACK_CHANNEL: {{slack_channel}}
+        WEATHER_API_KEY: {{weather_apikey}}
+        API_V2_URL: {{api_v2_url}}
+        WEATHER_URL: {{weather_url}}
+        CLIENT_ID: {{client_id}}
+        CLIENT_SECRET: {{client_secret}}
+        TEST_COUNTRY: {{test_country}}
 
   - put: semantic-version
     params:
