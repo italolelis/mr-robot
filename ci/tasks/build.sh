@@ -2,7 +2,7 @@
 
 echo "Disable strict host check for github"
 mkdir -p ~/.ssh/
-echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+echo "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
 echo "Installing dependencies"
 sed -e "s/foo/${NPM_TOKEN}/g" package.json.dist > package.json
