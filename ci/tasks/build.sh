@@ -1,6 +1,7 @@
 #!/bin/sh
 
 echo "Disable strict host check for github"
+mkdir -p ~/.ssh/
 echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
 echo "Installing dependencies"
