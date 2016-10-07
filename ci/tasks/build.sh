@@ -7,6 +7,7 @@ echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 echo "Installing dependencies"
 sed -e "s/foo/${NPM_TOKEN}/g" package.json.dist > package.json
 npm install babel-cli
+npm install rimraf
 npm install
 
 echo "Compiling the app"
