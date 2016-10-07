@@ -6,11 +6,11 @@ image_resource:
   source: {repository: node, tag: "6.7"}
 
 run:
-  path: ci/tasks/build-js.sh
+  path: ci/tasks/build.sh
   dir: app-master
 
 inputs:
   - name: app-master
 
 outputs:
-  - name: built-project-js
+  - name: artifacts
