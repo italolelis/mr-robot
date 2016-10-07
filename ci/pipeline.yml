@@ -1,0 +1,70 @@
+---
+###############################
+# Resources
+###############################
+resources:
+- name: app-master
+  type: git
+  source:
+    uri: https://github.com/italolelis/mr-robot.git
+    branch: master
+
+- name          : gh-release-rc
+  type          : hf-github-releases
+  source        :
+    user        : "italolelis"
+    repository  : "mr-robot"
+    pre_release : true
+
+- name          : gh-release-final
+  type          : hf-github-releases
+  source        :
+    user        : "italolelis"
+    repository  : "mr-robot"
+
+- name              : semantic-version
+  type              : semver
+  source            :
+    driver          : git
+    initial_version : 0.0.0-rc.1
+    uri             : https://github.com/italolelis/mr-robot.git
+    branch          : version
+    file            : version
+
+jobs:
+
+#
+# Merge to master
+#
+# - name: master-test-suite
+#   plan:
+#   - get: app-master
+#     trigger: true
+#   - aggregate:
+#     - task: master phpunit test
+#       file: app-master/ci/tasks/master-phpunit-test.yml
+
+#     - task: master js test
+#       file: app-master/ci/tasks/master-js-test.yml
+
+- name: build-and-release
+  public: false
+  serial: true
+  plan:
+  - get: app-master
+    trigger: true
+
+  - aggregate:
+    - task: build js
+      file: app-master/ci/tasks/master/build.yml
+
+  - put: semantic-version
+    params:
+        pre: 'rc'
+
+  - put: gh-release-rc
+    params:
+      name: semantic-version/version
+      tag : semantic-version/version
+      globs:
+      - artifacts/*.zip
